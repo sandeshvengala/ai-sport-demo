@@ -1,0 +1,90 @@
+.role-bg {
+  position: relative;
+  min-height: 100vh;
+  background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1500&q=80') no-repeat center center fixed;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.role-gradient {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(52,152,219,0.6) 0%, rgba(44,62,80,0.7) 100%);
+  z-index: 1;
+}
+
+.role-container {
+  position: relative;
+  z-index: 2;
+  background: rgba(0,0,0,0.5);
+  border-radius: 20px;
+  padding: 40px 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 8px 32px 0 rgba(31,38,135,0.37);
+  color: #fff;
+  max-width: 400px;
+  width: 90vw;
+}
+
+.role-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 30px;
+  letter-spacing: 1px;
+}
+
+.role-list {
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+  width: 100%;
+}
+
+.role-btn {
+  padding: 18px 0;
+  border-radius: 15px;
+  border: none;
+  color: #fff;
+  font-size: 1.3rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(44,62,80,0.2);
+  transition: background 0.3s, transform 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.role-btn:hover {
+  background: #34495e !important;
+  transform: scale(1.05);
+}
+
+.role-icon {
+  font-size: 2rem;
+}
+
+@media (max-width: 600px) {
+  .role-container {
+    padding: 20px 10px;
+    max-width: 95vw;
+  }
+  .role-title {
+    font-size: 1.3rem;
+  }
+  .role-btn {
+    font-size: 1rem;
+    padding: 12px 0;
+  }
+  .role-icon {
+    font-size: 1.3rem;
+  }
+}
