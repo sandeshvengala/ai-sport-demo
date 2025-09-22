@@ -58,7 +58,7 @@ function VideoAnalysis() {
             await new Promise(res => videoRef.current.onseeked = res);
             ctx.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
             await new Promise((resolve) => {
-              pose.onResults = (results) => {
+              function handleResults(results) {
                 if (results.poseLandmarks) {
                   const hipY = results.poseLandmarks[23].y;
                   if (lastHipY !== null) {
@@ -73,7 +73,8 @@ function VideoAnalysis() {
                   lastHipY = hipY;
                 }
                 resolve();
-              };
+              }
+              pose.onResults = handleResults;
               pose.send({image: canvas});
             });
           }
@@ -101,7 +102,7 @@ function VideoAnalysis() {
             await new Promise(res => videoRef.current.onseeked = res);
             ctx.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
             await new Promise((resolve) => {
-              pose.onResults = (results) => {
+              function handleResults(results) {
                 if (results.poseLandmarks) {
                   // Use left ankle (landmark 27)
                   const ankleY = results.poseLandmarks[27].y;
@@ -109,7 +110,8 @@ function VideoAnalysis() {
                   if (maxAnkleY === null || ankleY > maxAnkleY) maxAnkleY = ankleY;
                 }
                 resolve();
-              };
+              }
+              pose.onResults = handleResults;
               pose.send({image: canvas});
             });
           }

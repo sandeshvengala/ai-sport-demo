@@ -7,7 +7,7 @@ import CoachDashboard from './CoachDashboard';
 import AdminDashboard from './AdminDashboard';
 import ProtectedRoute from './ProtectedRoute';
 import NotificationBar from './NotificationBar';
-import { sendNotificationEmail } from './emailService';
+// import { sendNotificationEmail } from './emailService';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
