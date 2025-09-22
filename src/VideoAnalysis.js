@@ -80,7 +80,7 @@ function VideoAnalysis() {
           }
           setResult(`Detected: ${repCount} sit-ups`);
         } else if (testType === 'verticaljump') {
-          // Real vertical jump analysis using ankle Y position
+          // Refactored vertical jump analysis using ankle Y position
           const pose = new Pose({
             locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/pose/${file}`,
           });
@@ -97,21 +97,21 @@ function VideoAnalysis() {
           canvas.width = videoRef.current.videoWidth;
           canvas.height = videoRef.current.videoHeight;
           const ctx = canvas.getContext('2d');
+          const handleResults = (results, resolve) => {
+            if (results.poseLandmarks) {
+              // Use left ankle (landmark 27)
+              const ankleY = results.poseLandmarks[27].y;
+              if (minAnkleY === null || ankleY < minAnkleY) minAnkleY = ankleY;
+              if (maxAnkleY === null || ankleY > maxAnkleY) maxAnkleY = ankleY;
+            }
+            resolve();
+          };
           for (let t = 0; t < videoRef.current.duration; t += 0.2) {
             videoRef.current.currentTime = t;
             await new Promise(res => videoRef.current.onseeked = res);
             ctx.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
             await new Promise((resolve) => {
-              function handleResults(results) {
-                if (results.poseLandmarks) {
-                  // Use left ankle (landmark 27)
-                  const ankleY = results.poseLandmarks[27].y;
-                  if (minAnkleY === null || ankleY < minAnkleY) minAnkleY = ankleY;
-                  if (maxAnkleY === null || ankleY > maxAnkleY) maxAnkleY = ankleY;
-                }
-                resolve();
-              }
-              pose.onResults = handleResults;
+              pose.onResults = (results) => handleResults(results, resolve);
               pose.send({image: canvas});
             });
           }
